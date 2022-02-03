@@ -1,3 +1,15 @@
+h1 {
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 90px;
+}
+
+h2 {
+  text-align: center;
+  font-family: 'Dancing Script', cursive;
+  font-size: 60px;
+}
+
 body {
     background-color: gray;
 	/* Use a system font, if none are available use an available sans-sarif   font */
@@ -14,6 +26,7 @@ section.board {
   grid-template-rows: repeat(3, 10vmin);
   grid-template-columns: repeat(3, 10vmin);
   grid-gap: 0vmin;
+  margin: 0 auto;
 }
 
 div {
@@ -22,3 +35,4 @@ div {
   text-align: center;
   vertical-align: middle;
 }
+

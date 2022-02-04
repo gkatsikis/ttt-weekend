@@ -3,6 +3,12 @@
 
 
 /*---------------------------- Variables (state) ----------------------------*/
+let turn = true
+
+let winner = //win, lose, tie
+
+
+
 
 
 
@@ -21,10 +27,27 @@ const bottomRight = document.querySelector('#sq8')
 
 const message = document.querySelector('#message')
 
+const squares = [topLeft, topCenter, topRight, midLeft, midCenter, midRight, bottomLeft, bottomCenter, bottomRight]
 
 /*----------------------------- Event Listeners -----------------------------*/
+//When you click a square
 
+//when you click reset
 
+//
 
 /*-------------------------------- Functions --------------------------------*/
+//initializing the game aka init
+function init(evt) {
+  
+}
 
+//resetting the board
+function reset(evt) {
+
+}
+
+//render values to page (??)
+function render(evt) {
+  
+}

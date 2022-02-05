@@ -6,69 +6,32 @@
 
 let winner, turn, squares
 
-// let winningCombos = [
-//   [squares[0],squares[1],squares[2]],
-//   [squares[3],squares[4],squares[5]],
-//   [squares[6],squares[7],squares[8]],
-//   [squares[0],squares[3],squares[6]],
-//   [squares[1],squares[4],squares[7]],
-//   [squares[2],squares[5],squares[8]],
-//   [squares[0],squares[4],squares[8]],
-//   [squares[2],squares[4],squares[6]]
-// ]
+
+
 
 
 
 
 /*------------------------ Cached Element References ------------------------*/
-const board = document.querySelector('.board')
 
-const topLeft = document.querySelector('#sq0')
-const topCenter = document.querySelector('#sq1')
-const topRight = document.querySelector('#sq2')
-const midLeft = document.querySelector('#sq3')
-const midCenter = document.querySelector('#sq4')
-const midRight = document.querySelector('#sq5')
-const bottomLeft = document.querySelector('#sq6')
-const bottomCenter = document.querySelector('#sq7')
-const bottomRight = document.querySelector('#sq8')
+
 
 const message = document.querySelector('#message')
 
 const resetBtn = document.querySelector('#resetButton')
 
 const gameBoard = document.querySelectorAll('.game-board')
-// console.log(gameBoard)
+console.log(gameBoard)
 
 // const squares = [topLeft, topCenter, topRight, midLeft, midCenter, midRight, bottomLeft, bottomCenter, bottomRight]
 
 
 /*----------------------------- Event Listeners -----------------------------*/
-//When you click a square marks as 1(x) if turn = true, else -1(o) if turn = false
-// 5) Next, the app should wait for the user to click a square and call a handleClick function
-  // the handleClick function will...
 
-	// 5.1) Obtain the index of the square that was clicked by:
-	  // 5.1.1) "Extracting" the index from an id assigned to the element in the HTML 
-		// Hint: Each id seems to correspond with an index in our board array. How could these be used if
-		// we cleaned them up a bit?
-topLeft.addEventListener('click', clickSquare(0))
-topCenter.addEventListener('click', clickSquare(1))
-topRight.addEventListener('click', clickSquare(2))
-midLeft.addEventListener('click', clickSquare(3))
-midCenter.addEventListener('click', clickSquare(4))
-midRight.addEventListener('click', clickSquare(5))
-bottomLeft.addEventListener('click', clickSquare(6))
-bottomCenter.addEventListener('click', clickSquare(7))
-bottomRight.addEventListener('click', clickSquare(8))
+	
+gameBoard.forEach(div => div.addEventListener('click', clickSquare))
 
-	// 5.2) If the board has a value at the index, immediately return because that square is already taken.
 
-	// 5.3) If winner is not null, immediately return because the game is over.
-
-	// 5.4) Update the board array at the index with the value of turn.
-
-	// 5.5) Change the turn by multiplying turn by -1 (this flips a 1 to -1, and vice-versa).
 
 
 
@@ -79,8 +42,10 @@ init()
 
 function init(evt) {
 //make board array to 9 nulls
-squares = [null, null, null, null, null, null, null, null, null]
-console.log(squares)
+squares = [
+  null, null, null, 
+  null, null, null, 
+  null, null, null]
 //initialize who's turn
 turn = -1 //player 'O>>X later in renderTurn() so X starts first'
 //make winner variable = null
@@ -89,19 +54,32 @@ render()
 }
 
 function render(evt) {
-  renderBoard()
   renderMessage()
+  renderBoard()
 }
 
+// function renderBoard(evt) {
+//   for(let i = 0; i < squares.length; i++) {
+//     if (squares[i] === 1){
+//       gameBoard[i].textContent = "X"
+//     }
+//     if (squares[i] === -1) {
+//       gameBoard[i].textContent = "O"
+//     }
+// }
+// }
+
 function renderBoard(evt) {
-  for(let i = 0; i < squares.length; i++) {
-    if (squares[i] === 1){
-      gameBoard[i].textContent = "X"
+  console.log(squares)
+  squares.forEach((square, index) => {
+    console.log(gameBoard[index]) 
+    if (squares[index] === 1){
+      gameBoard[index].textContent = "X"
     }
-    if (squares[i] === -1) {
-      gameBoard[i].textContent = "O"
+    if (squares[index] === -1) {
+      gameBoard[index].textContent = "O"
     }
-}
+  })
 }
 
 function renderMessage(evt) {
@@ -114,6 +92,8 @@ function renderTurn(evt) {
   turn === 1 ? message.textContent = "It's X's turn" : message.textContent = "It's O's turn"  
 }
 
+
+
 function renderWinner(evt) {
   if (winner === 'T') {
     message.textContent = "It's a tie!"
@@ -122,18 +102,52 @@ function renderWinner(evt) {
   } else {
     message.textContent = "O's have won it!"
   }
+  return
 }
 
-function clickSquare(evt) {
-  if (squares[evt] === 1) {
-  } else if (squares[evt] === -1) {
+
+function clickSquare(evt) {  //handleClick
+  const index = evt.target.id.replace('sq','')
+  if (squares[index] === null) {
+    squares[index] = turn
   } else {
-    squares[evt] = turn
+    clickSquare()
   }
+  console.log(squares)
+  render()
 }
 
 
 
+
+//  The Job of the Render Function
+
+// 1. Needs to look at every element
+//    a. forEach
+//    b. for loop
+// 2. What code needs to be executed on each element?
+//    a. if 1 = x
+//    b. else if -1 = 0
+// 3. How can we update the board?
+//    a. what HTML element we are targeting
+//    b. innerText, textContent, 
+
+// topLeft.textContent = "X"
+
+
+function checkWinner(evt) {
+  let winningCombos = [
+  [squares[0],squares[1],squares[2]],
+  [squares[3],squares[4],squares[5]],
+  [squares[6],squares[7],squares[8]],
+  [squares[0],squares[3],squares[6]],
+  [squares[1],squares[4],squares[7]],
+  [squares[2],squares[5],squares[8]],
+  [squares[0],squares[4],squares[8]],
+  [squares[2],squares[4],squares[6]]
+]
+
+}
 
 
 
@@ -158,6 +172,8 @@ function reset(evt) {
   clearBoard()
   toggleResetButton()
   resetMessage()
+  const giveItTime = setTimeout(init(), 5000)
+  giveItTime
 }
 
 
@@ -183,4 +199,5 @@ function resetMessage(evt) {
   message.innerText = "Ready to play again?"
 }
 
+// console.log(gameBoard[0])
 

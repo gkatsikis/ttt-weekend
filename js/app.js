@@ -4,21 +4,21 @@
 
 /*---------------------------- Variables (state) ----------------------------*/
 
-let winner, turn
+let winner, turn, squares
 
-let winningCombos = [
-  [squares[0],squares[1],squares[2]],
-  [squares[3],squares[4],squares[5]],
-  [squares[6],squares[7],squares[8]],
-  [squares[0],squares[3],squares[6]],
-  [squares[1],squares[4],squares[7]],
-  [squares[2],squares[5],squares[8]],
-  [squares[0],squares[4],squares[8]],
-  [squares[2],squares[4],squares[6]]
-]
+// let winningCombos = [
+//   [squares[0],squares[1],squares[2]],
+//   [squares[3],squares[4],squares[5]],
+//   [squares[6],squares[7],squares[8]],
+//   [squares[0],squares[3],squares[6]],
+//   [squares[1],squares[4],squares[7]],
+//   [squares[2],squares[5],squares[8]],
+//   [squares[0],squares[4],squares[8]],
+//   [squares[2],squares[4],squares[6]]
+// ]
 
 
-let squares
+
 
 /*------------------------ Cached Element References ------------------------*/
 const board = document.querySelector('.board')
@@ -41,7 +41,6 @@ const gameBoard = document.querySelectorAll('.game-board')
 // console.log(gameBoard)
 
 // const squares = [topLeft, topCenter, topRight, midLeft, midCenter, midRight, bottomLeft, bottomCenter, bottomRight]
-//or
 
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -53,6 +52,15 @@ const gameBoard = document.querySelectorAll('.game-board')
 	  // 5.1.1) "Extracting" the index from an id assigned to the element in the HTML 
 		// Hint: Each id seems to correspond with an index in our board array. How could these be used if
 		// we cleaned them up a bit?
+topLeft.addEventListener('click', clickSquare(0))
+topCenter.addEventListener('click', clickSquare(1))
+topRight.addEventListener('click', clickSquare(2))
+midLeft.addEventListener('click', clickSquare(3))
+midCenter.addEventListener('click', clickSquare(4))
+midRight.addEventListener('click', clickSquare(5))
+bottomLeft.addEventListener('click', clickSquare(6))
+bottomCenter.addEventListener('click', clickSquare(7))
+bottomRight.addEventListener('click', clickSquare(8))
 
 	// 5.2) If the board has a value at the index, immediately return because that square is already taken.
 
@@ -63,6 +71,8 @@ const gameBoard = document.querySelectorAll('.game-board')
 	// 5.5) Change the turn by multiplying turn by -1 (this flips a 1 to -1, and vice-versa).
 
 
+
+
 /*-------------------------------- Functions --------------------------------*/
 
 init()
@@ -70,8 +80,9 @@ init()
 function init(evt) {
 //make board array to 9 nulls
 squares = [null, null, null, null, null, null, null, null, null]
+console.log(squares)
 //initialize who's turn
-turn = -1 //player 'X'
+turn = -1 //player 'O>>X later in renderTurn() so X starts first'
 //make winner variable = null
 winner = null
 render()
@@ -113,7 +124,13 @@ function renderWinner(evt) {
   }
 }
 
-
+function clickSquare(evt) {
+  if (squares[evt] === 1) {
+  } else if (squares[evt] === -1) {
+  } else {
+    squares[evt] = turn
+  }
+}
 
 
 

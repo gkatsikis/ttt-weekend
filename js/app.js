@@ -21,9 +21,17 @@ const message = document.querySelector('#message')
 const resetBtn = document.querySelector('#resetButton')
 
 const gameBoard = document.querySelectorAll('.game-board')
-console.log(gameBoard)
+// console.log(gameBoard)
 
-// const squares = [topLeft, topCenter, topRight, midLeft, midCenter, midRight, bottomLeft, bottomCenter, bottomRight]
+const topLeft = document.querySelector('#sq0')
+const topCenter = document.querySelector('#sq1')
+const topRight = document.querySelector('#sq2')
+const midLeft = document.querySelector('#sq3')
+const midCenter = document.querySelector('#sq4')
+const midRight = document.querySelector('#sq5')
+const bottomLeft = document.querySelector('#sq6')
+const bottomCenter = document.querySelector('#sq7')
+const bottomRight = document.querySelector('#sq8')
 
 
 /*----------------------------- Event Listeners -----------------------------*/
@@ -31,7 +39,7 @@ console.log(gameBoard)
 	
 gameBoard.forEach(div => div.addEventListener('click', clickSquare))
 
-
+resetBtn.addEventListener("click", reset)
 
 
 
@@ -44,7 +52,7 @@ function init(evt) {
 //make board array to 9 nulls
 squares = [
   null, null, null, 
-  null, null, null, 
+  null, null, null,
   null, null, null]
 //initialize who's turn
 turn = -1 //player 'O>>X later in renderTurn() so X starts first'
@@ -70,9 +78,9 @@ function render(evt) {
 // }
 
 function renderBoard(evt) {
-  console.log(squares)
+  // console.log(squares)
   squares.forEach((square, index) => {
-    console.log(gameBoard[index]) 
+    // console.log(gameBoard[index]) 
     if (squares[index] === 1){
       gameBoard[index].textContent = "X"
     }
@@ -83,6 +91,7 @@ function renderBoard(evt) {
 }
 
 function renderMessage(evt) {
+  checkWinner()
   winner === null ? renderTurn() : renderWinner()
 }
 
@@ -97,10 +106,13 @@ function renderTurn(evt) {
 function renderWinner(evt) {
   if (winner === 'T') {
     message.textContent = "It's a tie!"
+    resetBtn.style.display='block'
   } else if (winner === 1) {
     message.textContent = "X's have won it!"
+    resetBtn.style.display='block'
   } else {
     message.textContent = "O's have won it!"
+    resetBtn.style.display='block'
   }
   return
 }
@@ -113,7 +125,7 @@ function clickSquare(evt) {  //handleClick
   } else {
     clickSquare()
   }
-  console.log(squares)
+  // console.log(squares)
   render()
 }
 
@@ -136,48 +148,52 @@ function clickSquare(evt) {  //handleClick
 
 
 function checkWinner(evt) {
-  let winningCombos = [
-  [squares[0],squares[1],squares[2]],
-  [squares[3],squares[4],squares[5]],
-  [squares[6],squares[7],squares[8]],
-  [squares[0],squares[3],squares[6]],
-  [squares[1],squares[4],squares[7]],
-  [squares[2],squares[5],squares[8]],
-  [squares[0],squares[4],squares[8]],
-  [squares[2],squares[4],squares[6]]
+let winningCombos = [
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [0,4,8],
+  [2,4,6],
 ]
 
+const sums = []
+
+for (let i = 0; i < winningCombos.length; i ++){
+  const sumEx = squares[winningCombos[i][0]] + squares[winningCombos[i][1]] + squares[winningCombos[i][2]]
+  sums.push(sumEx)
+}
+let xWon = sums.some(answer => answer === 3)
+let oWon = sums.some(answer => answer === -3)
+let tie = squares.every(square => square !== null)
+if (xWon) {
+  winner = 1
+} else if (oWon) {
+  winner = -1
+} else if (tie) {
+  winner = 'T'
+}
 }
 
 
 
-// 5.6.1) There are a couple methods you can use to find out if there is a winner.
-	   // This is the first, more elegant way that takes advantage of the winningCombos array you wrote above in step 4.
-	   // The 5.6.2 step is a little simpler to comprehend, but you'll need to write a lot more code.
-	   // The 5.6.2 step also won't take advantage of the winningCombos array, but using it as a reference will help you build a solution.
-	   // Choose only one path.
-		  // 5.6.1.1) Loop through the each of the winning combination arrays defined.
-		  // 5.6.1.2) Total up the three board positions using the three indexes in the current combo.
-		  // 5.6.1.3) Convert the total to an absolute value (convert any negative total to positive).
-		  // 5.6.1.4) If the total equals 3, we have a winner! Set the winner variable to the board's value at the index specified by the first index of that winning combination's array by returning that value.
-
-		// 5.6.2) This solution is less elegant, but might be easier to write on your own if you're struggling with the 5.6.1.X pseudocode.
-		  // 5.6.2.1) For each one of the winning combinations you wrote in step 4, find the total of each winning combination.
-		  // 5.6.2.2) Convert the total to an absolute value (convert any negative total to positive)
-		  // 5.6.2.3) If the total equals 3, we have a winner! Set the winner variable to the board's value at the index specified by the first index of that winning combination's array by returning that value.
-
+// const sum = (total, single) => total + single
+// let winArray = winningCombos.map(winArr => winArr.reduce(sum) === 3 || winArr.reduce(sum) === -3)
+// console.log(winArray)
 
 //resetting the board
 function reset(evt) {
   clearBoard()
   toggleResetButton()
   resetMessage()
-  const giveItTime = setTimeout(init(), 5000)
-  giveItTime
+  init()
 }
 
 
 function clearBoard(evt) {
+  squares = [null, null, null, null, null, null, null, null, null]
   topLeft.innerText = ""
   topCenter.innerText = ""
   topRight.innerText = ""
@@ -189,12 +205,10 @@ function clearBoard(evt) {
   bottomRight.innerText = ""
 }
 
-// toggleResetButton()
 function toggleResetButton(evt) {
   resetBtn.style.display='none'  
 }
 
-// resetMessage()
 function resetMessage(evt) {
   message.innerText = "Ready to play again?"
 }

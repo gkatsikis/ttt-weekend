@@ -34,8 +34,14 @@ body {
 }
 
 #resetButton {
-  margin: 50px 403px;
-  width: 50px
+  /* margin: 50px 485px; */
+  text-align: center;
+  margin: auto;
+  width: 100px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 2);
+  z-index: 3;
+  background-color: RGB(240,213,168);
+  font-family: 'Dancing Script';
 }
 
 section.board {

@@ -18,6 +18,7 @@ const resetBtn = document.querySelector('#resetButton')
 const gameBoard = document.querySelectorAll('.game-board')
 // console.log(gameBoard)
 
+
 const topLeft = document.querySelector('#sq0')
 const topCenter = document.querySelector('#sq1')
 const topRight = document.querySelector('#sq2')
@@ -188,6 +189,7 @@ function clearBoard(evt) {
   bottomLeft.innerText = ""
   bottomCenter.innerText = ""
   bottomRight.innerText = ""
+  // gameBoard.innerText = ""
 }
 
 function toggleResetButton(evt) {

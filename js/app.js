@@ -7,11 +7,6 @@
 let winner, turn, squares
 
 
-
-
-
-
-
 /*------------------------ Cached Element References ------------------------*/
 
 
@@ -36,12 +31,9 @@ const bottomRight = document.querySelector('#sq8')
 
 /*----------------------------- Event Listeners -----------------------------*/
 
-	
 gameBoard.forEach(div => div.addEventListener('click', clickSquare))
 
 resetBtn.addEventListener("click", reset)
-
-
 
 
 /*-------------------------------- Functions --------------------------------*/
@@ -54,7 +46,7 @@ squares = [
   null, null, null, 
   null, null, null,
   null, null, null]
-//initialize who's turn
+
 turn = -1 //player 'O>>X later in renderTurn() so X starts first'
 //make winner variable = null
 winner = null
@@ -130,8 +122,6 @@ function clickSquare(evt) {  //handleClick
 }
 
 
-
-
 //  The Job of the Render Function
 
 // 1. Needs to look at every element
@@ -177,23 +167,18 @@ if (xWon) {
 }
 }
 
-
-
 // const sum = (total, single) => total + single
 // let winArray = winningCombos.map(winArr => winArr.reduce(sum) === 3 || winArr.reduce(sum) === -3)
-// console.log(winArray)
 
-//resetting the board
+
 function reset(evt) {
   clearBoard()
   toggleResetButton()
-  resetMessage()
   init()
 }
 
 
 function clearBoard(evt) {
-  squares = [null, null, null, null, null, null, null, null, null]
   topLeft.innerText = ""
   topCenter.innerText = ""
   topRight.innerText = ""
@@ -209,9 +194,5 @@ function toggleResetButton(evt) {
   resetBtn.style.display='none'  
 }
 
-function resetMessage(evt) {
-  message.innerText = "Ready to play again?"
-}
 
-// console.log(gameBoard[0])
 

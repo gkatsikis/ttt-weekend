@@ -94,8 +94,6 @@ function renderTurn(evt) {
   turn === 1 ? message.textContent = "It's X's turn" : message.textContent = "It's O's turn"  
 }
 
-
-
 function renderWinner(evt) {
   if (winner === 'T') {
     message.textContent = "It's a tie!"
@@ -110,7 +108,6 @@ function renderWinner(evt) {
   return
 }
 
-
 function clickSquare(evt) {  //handleClick
   const index = evt.target.id.replace('sq','')
   if (squares[index] === null) {
@@ -121,7 +118,6 @@ function clickSquare(evt) {  //handleClick
   // console.log(squares)
   render()
 }
-
 
 //  The Job of the Render Function
 
@@ -136,7 +132,6 @@ function clickSquare(evt) {  //handleClick
 //    b. innerText, textContent, 
 
 // topLeft.textContent = "X"
-
 
 function checkWinner(evt) {
 let winningCombos = [
@@ -171,13 +166,11 @@ if (xWon) {
 // const sum = (total, single) => total + single
 // let winArray = winningCombos.map(winArr => winArr.reduce(sum) === 3 || winArr.reduce(sum) === -3)
 
-
 function reset(evt) {
   clearBoard()
   toggleResetButton()
   init()
 }
-
 
 function clearBoard(evt) {
   topLeft.innerText = ""

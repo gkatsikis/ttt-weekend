@@ -167,7 +167,7 @@ if (xWon) {
 // let winArray = winningCombos.map(winArr => winArr.reduce(sum) === 3 || winArr.reduce(sum) === -3)
 
 function reset(evt) {
-  // audio()
+  audio()
   clearBoard()
   toggleResetButton()
   init()

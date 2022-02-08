@@ -29,7 +29,7 @@ const bottomLeft = document.querySelector('#sq6')
 const bottomCenter = document.querySelector('#sq7')
 const bottomRight = document.querySelector('#sq8')
 
-
+const audio = document.querySelector('audio')
 /*----------------------------- Event Listeners -----------------------------*/
 
 gameBoard.forEach(div => div.addEventListener('click', clickSquare))
@@ -190,8 +190,9 @@ function toggleResetButton(evt) {
   resetBtn.style.display='none'  
 }
 
-// function audio(evt) {
-//   const sound = document.getElementById('one-piece')
-//   sound.play()
-// }
+function audio(evt) {
+  const sound = document.getElementById('one-piece')
+  sound.play()
+  audio.volume = 0.25
+}
 

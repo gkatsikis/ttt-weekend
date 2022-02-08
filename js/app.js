@@ -16,7 +16,8 @@ const message = document.querySelector('#message')
 const resetBtn = document.querySelector('#resetButton')
 
 const gameBoard = document.querySelectorAll('.game-board')
-// console.log(gameBoard)
+
+const audioFile = new Audio('../audio/one-piece.mp3')
 
 
 const topLeft = document.querySelector('#sq0')
@@ -167,7 +168,8 @@ if (xWon) {
 // let winArray = winningCombos.map(winArr => winArr.reduce(sum) === 3 || winArr.reduce(sum) === -3)
 
 function reset(evt) {
-  audio()
+  audioFile.volume = .25
+  audioFile.play()
   clearBoard()
   toggleResetButton()
   init()
@@ -190,9 +192,4 @@ function toggleResetButton(evt) {
   resetBtn.style.display='none'  
 }
 
-function audio(evt) {
-  const sound = document.getElementById('one-piece')
-  sound.play()
-  audio.volume = 0.25
-}
 
